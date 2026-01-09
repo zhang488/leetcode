@@ -46,10 +46,23 @@ package 数组;
 public class Demo3删除有序数组中的重复项 {
     public static void main(String[] args) {
         int [] nums={0,0,1,1,1,2,2,3,3,4};
-        int i = removeDuplicates(nums);
-        System.out.println(i);
+        int sun = removeDuplicates2(nums);
+        System.out.println(sun);
+        for (int i = 0; i < nums.length; i++) {
+            System.out.print(nums[i]+" ");
+        }
     }
 
+
+    public static int removeDuplicates2(int[] nums) {
+        int slow=0;
+        for (int i=1;i<nums.length;i++){
+            if (nums[slow]!=nums[i]) {
+                nums[++slow]=nums[i];
+            }
+        }
+        return slow+1;
+    }
 
     public static int removeDuplicates(int[] nums) {
         //定义慢指针

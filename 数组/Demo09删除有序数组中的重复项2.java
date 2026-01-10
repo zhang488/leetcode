@@ -52,10 +52,10 @@ package 数组;
 public class Demo09删除有序数组中的重复项2 {
 
     public static void main(String[] args) {
-//        int [] nums = {0,0,1,1,1,1,2,3,3,3,3,3,3};
+        int [] nums = {0,0,1,1,1,1,2,3,3,3,3,3,3};
 //        int [] nums = {0,0,1,1,1,1,2,3,3};
-        int [] nums = {1,1,1,2,2,3};
-        int length = removeDuplicates2(nums);
+//        int [] nums = {1,1,1,2,2,3};
+        int length = removeDuplicates(nums);
         System.out.println(length);
         for (int num : nums) {
             System.out.print(num+" ");
@@ -78,29 +78,24 @@ public class Demo09删除有序数组中的重复项2 {
     }
 
     //1,1,1,2,2,3
+
+    /**
+     * 双指针
+     * @param nums
+     * @return
+     */
     public static int removeDuplicates2(int[] nums) {
         if (nums.length<=2) {
             return nums.length;
         }
-        int slow=1;
+        int slow=2;
         for (int i = 2; i < nums.length; i++) {
-            if ((nums[slow-1]==nums[slow])&&(nums[slow]!=nums[i])) {
-                nums[++slow]=nums[i];
-                if (i+1<nums.length) {
-                    nums[slow+1]=nums[i+1];
-                }
-            }else {
-                if (nums[slow-1]!=nums[slow]) {
-                    slow++;
-                }
-                if (slow+1<nums.length) {
-                    if (nums[slow]>nums[slow+1]) {
-                        nums[++slow]=nums[slow+1];
-                    }
-                }
+            if (nums[slow-2]!=nums[i]) {
+                nums[slow]=nums[i];
+                slow++;
             }
         }
-        return slow+1;
+        return slow;
     }
 
 }

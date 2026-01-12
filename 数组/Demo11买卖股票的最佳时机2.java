@@ -43,8 +43,8 @@ package 数组;
 public class Demo11买卖股票的最佳时机2 {
 
     public static void main(String[] args) {
-        int [] prices = {7,1,5,3,6,4};
-        int maxProfit = maxProfit(prices);
+        int [] prices = {6,1,3,2,4,7};
+        int maxProfit = maxProfit2(prices);
         System.out.println(maxProfit);
     }
 
@@ -60,20 +60,28 @@ public class Demo11买卖股票的最佳时机2 {
         return dp[n - 1][0];
     }
 
-//    public static int maxProfit(int[] prices) {
-//        if (prices.length==2) {
-//            return Math.max(0,prices[1]-prices[0]);
-//        }
-//        int profit=0;
-//        int slow=1;
-//        for (int i=2;i<prices.length;i++){
-//            if (prices[slow]>prices[slow-1]&&prices[i-1]<prices[i]) {
-//                profit+=prices[slow]-prices[slow-1];
-//                slow++;
-//            }else {
-//                if () {
-//                }
-//            }
-//        }
-//    }
+
+    //7,1,5,3,6,4
+
+    //6,1,3,2,4,7
+    public static int maxProfit2(int[] prices) {
+        if (prices.length==2) {
+            return Math.max(0,prices[1]-prices[0]);
+        }
+        int profit=0;
+        for (int i = 1; i < prices.length; i++){
+            if (i+1<prices.length) {
+                if (prices[i-1]<prices[i]&&prices[i]>prices[i+1]) {
+                    profit+=prices[i]-prices[i-1];
+                } else if (prices[i-1]<prices[i]&&prices[i]<prices[i+1]) {
+                    profit+=prices[i+1]-prices[i];
+                }
+            }else {
+                if (prices[i-1]<prices[i]) {
+                    profit+=prices[i]-prices[i-1];
+                }
+            }
+        }
+        return profit;
+    }
 }

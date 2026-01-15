@@ -49,18 +49,16 @@ import java.util.List;
 public class Demo14反转字符串中的单词 {
 
     public static void main(String[] args) {
-        String s = "the sky is blue";
-        String s1 = reverseWords(s);
+        String s = " the sky is blue  ";
+        String s1 = reverseWords1(s);
         System.out.println(s1);
     }
 
     public static String reverseWords1(String s) {
-        // 除去开头和末尾的空白字符
-        s = s.trim();
-        // 正则匹配连续的空白字符作为分隔符分割
-        List<String> wordList = Arrays.asList(s.split("\\s+"));
-        Collections.reverse(wordList);
-        return String.join(" ", wordList);
+        String trim = s.trim();
+        String[] split = trim.split(" ");
+        Collections.reverse(Arrays.asList(split));
+        return String.join(" ",split);
     }
 
     public static String reverseWords(String s) {

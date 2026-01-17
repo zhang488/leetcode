@@ -54,4 +54,7 @@ public class Demo16判断子序列 {
         }
         return i == n;
     }
+
+
+
 }

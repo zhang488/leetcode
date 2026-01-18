@@ -44,18 +44,56 @@ public class Demo17赎金信 {
         System.out.println(canConstruct(ransomNote, magazine));
     }
 
+    /**
+     * 传统hash统计
+     * @param ransomNote
+     * @param magazine
+     * @return
+     */
     public static boolean canConstruct(String ransomNote, String magazine) {
         HashMap<Character,Integer> map = new HashMap<>();
-        for (int i = 0; i < magazine.length(); i++) {
-            map.put(magazine.charAt(i),i);
-        }
         for (int i = 0; i < ransomNote.length(); i++) {
-            if (map.containsKey(ransomNote.charAt(i))) {
-                map.remove(ransomNote.charAt(i),i);
+            if (!map.containsKey(ransomNote.charAt(i))) {
+                map.put(ransomNote.charAt(i), 1);
             }else {
+                map.put(ransomNote.charAt(i), map.get(ransomNote.charAt(i))+1);
+            }
+        }
+        for (int i = 0; i < magazine.length(); i++) {
+            if (map.containsKey(magazine.charAt(i))) {
+                map.put(magazine.charAt(i), map.get(magazine.charAt(i))-1);
+            }
+        }
+        for (Integer value : map.values()) {
+            if (value>0) {
                 return false;
             }
         }
         return true;
     }
+
+    /**
+     * hash映射
+     * @param ransomNote
+     * @param magazine
+     * @return
+     */
+    public static boolean canConstruct2(String ransomNote, String magazine) {
+        if(ransomNote.length() > magazine.length()){
+            return false;
+        }
+        int[] cnt = new int[26];
+        for(char c:magazine.toCharArray()){
+            cnt[c - 'a']++;
+        }
+        for(char c:ransomNote.toCharArray()){
+            if(--cnt[c - 'a'] < 0){
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+
 }

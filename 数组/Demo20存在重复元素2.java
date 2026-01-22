@@ -44,13 +44,20 @@ public class Demo20存在重复元素2 {
     public static void main(String[] args) {
         int [] nums = {1,2,3,1};
         boolean b = containsNearbyDuplicate(nums, 3);
+        System.out.println(b);
     }
 
     public static boolean containsNearbyDuplicate(int[] nums, int k) {
         HashMap<Integer,Integer> frontMap=new HashMap<>();
-        HashMap<Integer,Integer> behindMap=new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-
+            if (frontMap.containsKey(nums[i])) {
+                if (i-frontMap.get(nums[i])<=k) {
+                    return true;
+                }
+                frontMap.put(nums[i],i);
+            }else {
+                frontMap.put(nums[i],i);
+            }
         }
         return false;
     }

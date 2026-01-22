@@ -52,5 +52,6 @@ public class Demo20存在重复元素2 {
         for (int i = 0; i < nums.length; i++) {
 
         }
+        return false;
     }
 }

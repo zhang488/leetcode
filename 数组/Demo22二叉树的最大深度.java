@@ -1,6 +1,10 @@
 package 数组;
 
 
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+
 /**
  * 104. 二叉树的最大深度
  * 简单
@@ -35,10 +39,75 @@ package 数组;
 public class Demo22二叉树的最大深度 {
 
     public static void main(String[] args) {
-
+        //输入：root = [3,9,20,null,null,15,7]
+        //输出：3
+        TreeNode treeNode = new TreeNode(3);
+        TreeNode treeNode1 = new TreeNode(9);
+        TreeNode treeNode2 = new TreeNode(20);
+        TreeNode treeNode3 = new TreeNode(15);
+        TreeNode treeNode4 = new TreeNode(7);
+        treeNode.left = treeNode1;
+        treeNode.right = treeNode2;
+        treeNode2.left = treeNode3;
+        treeNode2.right = treeNode4;
+        System.out.println(maxDepth2(treeNode));
     }
 
+    /**
+     * 深度优先搜索
+     * @param root
+     * @return
+     */
+    public static int maxDepth(TreeNode root) {
+        if (root==null) {
+            return 0;
+        }else {
+            int leftLength = maxDepth(root.left);
+            int rightLength = maxDepth(root.right);
+            return Math.max(leftLength, rightLength) + 1;
+        }
+    }
 
+    /**
+     * 广度优先搜索
+     * @param root
+     * @return
+     */
+    public static int maxDepth2(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.offer(root);
+        int ans = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size > 0) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+                size--;
+            }
+            ans++;
+        }
+        return ans;
+    }
 
+}
 
+class TreeNode{
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(){};
+    TreeNode(int val){this.val=val;}
+    TreeNode(int val,TreeNode left,TreeNode right){
+        this.val=val;
+        this.left=left;
+        this.right=right;
+    }
 }

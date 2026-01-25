@@ -1,6 +1,7 @@
 package 数组;
 
 import javax.management.Query;
+import java.util.LinkedList;
 import java.util.Queue;
 
 /**
@@ -49,7 +50,12 @@ public class Demo24路径总和 {
 
     }
 
-
+    /**
+     * DFS深度优先搜索
+     * @param root
+     * @param targetSum
+     * @return
+     */
     public static boolean hasPathSum(TreeNode root, int targetSum) {
         if (root==null) {
             return false;
@@ -61,10 +67,35 @@ public class Demo24路径总和 {
     }
 
 
-
-//    public static boolean hasPathSum2(){
-//        Queue
-//    }
+    /**
+     * BFS广度优先搜索
+     * @return
+     */
+    public static boolean hasPathSum2(TreeNode root, int targetSum) {
+        if (root==null) {
+            return false;
+        }
+        Queue<TreeNode> treeNodes = new LinkedList<>();
+        Queue<Integer> sums = new LinkedList<>();
+        treeNodes.offer(root);
+        sums.offer(root.val);
+        while (!treeNodes.isEmpty()){
+            TreeNode treeNode = treeNodes.poll();
+            Integer sum = sums.poll();
+            if (treeNode.left==null&&treeNode.right==null&&sum==targetSum) {
+                return true;
+            }
+            if (treeNode.left!=null) {
+                treeNodes.offer(treeNode.left);
+                sums.offer(sum+treeNode.left.val);
+            }
+            if (treeNode.right!=null) {
+                treeNodes.offer(treeNode.right);
+                sums.offer(sum+treeNode.right.val);
+            }
+        }
+        return false;
+    }
 
 
 

@@ -1,5 +1,7 @@
 package 数组;
 
+import java.util.Arrays;
+
 /**
  *238. 除了自身以外数组的乘积
  * 已解答
@@ -38,9 +40,48 @@ package 数组;
 public class Demo33除了自身以外数组的乘积 {
 
     public static void main(String[] args) {
-
+        int [] ints = productExceptSelf2(new int[]{1,2,3,4});
+        System.out.println(Arrays.toString(ints));
     }
 
+    /**
+     * 前后缀和
+     * @param nums
+     * @return
+     */
+    public static int [] productExceptSelf2(int [] nums){
+        int len=nums.length;
+
+        //前缀和
+        int [] left=new int[len];
+        //后缀树
+        int [] right=new int[len];
+
+        //左侧为0的情况没有数据，所以乘积为1，默认原值
+        left[0]=1;
+        for (int i = 1; i < len; i++) {
+            left[i]=nums[i-1]*left[i-1];
+        }
+
+        //右侧为0的情况没有数据，所以乘积为1，默认原值
+        right[len-1]=1;
+        for (int i = len-2; i >=0 ; i--) {
+            right[i]=nums[i+1]*right[i+1];
+        }
+        int [] res=new int[len];
+        for (int i = 0; i < len; i++) {
+            res[i]=left[i]*right[i];
+        }
+
+        return res;
+    }
+
+
+    /**
+     * 前后缀和优化
+     * @param nums
+     * @return
+     */
     public static int[] productExceptSelf(int[] nums) {
         int length = nums.length;
         int[] answer = new int[length];

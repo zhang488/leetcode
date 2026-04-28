@@ -50,43 +50,70 @@ public class Demo45实现一个Map {
 
     }
 
+}
+
+/**
+ * 使用一个List存储一遍元素，用来进行随机查找使用，用map来存储元素以及元素对应的List中的下标
+ * 用来维护长度，增删操作，为什么要引入map，因为要判断是否存在的时候需要调用hashCode方法来保证
+ * 插入删除方法时间复杂度在 O(1)
+ */
+class RandomizedSet{
+
     List<Integer> nums;
-    Map<Integer,Integer> indices;
+    Map<Integer,Integer> hashMap;
     Random random;
 
-    public Demo45实现一个Map() {
+    public RandomizedSet() {
         nums=new ArrayList<>();
-        indices=new HashMap<>();
+        hashMap=new HashMap<>();
         random=new Random();
     }
 
-    public boolean insert(int val) {
-        if (indices.containsKey(val)) {
+    /**
+     * 插入元素
+     * @param val
+     * @return
+     */
+    public boolean insert(int val){
+        if (hashMap.containsKey(val)) {
             return false;
         }
         int index = nums.size();
         nums.add(val);
-        indices.put(val, index);
+        hashMap.put(val,index);
         return true;
     }
 
-    public boolean remove(int val) {
-        if (!indices.containsKey(val)) {
+    /**
+     * 删除元素
+     * @param val
+     * @return
+     */
+    public boolean remove(int val){
+        if (!hashMap.containsKey(val)) {
             return false;
         }
-        int index = indices.get(val);
-        int last = nums.get(nums.size() - 1);
-        nums.set(index, last);
-        indices.put(last, index);
+        //获取要删除元素下标
+        Integer idx = hashMap.get(val);
+        //获取最后一个元素
+        Integer last = nums.get(nums.size() - 1);
+        //将最后一个元素替换到要删除的下标位置
+        nums.set(idx,last);
+        hashMap.put(last,idx);
+        //删除元素
         nums.remove(nums.size() - 1);
-        indices.remove(val);
+        hashMap.remove(val);
         return true;
     }
 
-    public int getRandom() {
-        int randomIndex = random.nextInt(nums.size());
-        return nums.get(randomIndex);
+    /**
+     * 随机获取元素
+     * @return
+     */
+    public int getRandom(){
+        return this.nums.get(random.nextInt(this.nums.size()));
     }
+
 
 
 }

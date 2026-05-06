@@ -45,18 +45,24 @@ public class Demo94二叉树的中序遍历 {
 
     }
 
+    /**
+     * 递归写法
+     * @param root
+     * @return
+     */
     public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> res = new ArrayList<Integer>();
-        inorder(root, res);
-        return res;
+        List<Integer> ins=new ArrayList<>();
+        inorder(root,ins);
+        return ins;
     }
 
-    public void inorder(TreeNode root, List<Integer> res) {
-        if (root == null) {
+    public void inorder(TreeNode root,List<Integer> ins){
+        if (root==null) {
             return;
         }
-        inorder(root.left, res);
-        res.add(root.val);
-        inorder(root.right, res);
+        inorder(root.left,ins);
+        ins.add(root.val);
+        inorder(root.right,ins);
     }
+
 }

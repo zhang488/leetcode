@@ -48,7 +48,7 @@ public class Demo105从前序与中序遍历序列构造二叉树 {
         if (preorder == null || preorder.length == 0) {
             return null;
         }
-        TreeNode root = new TreeNode(preorder[0]);
+        TreeNode root = new TreeNode(preord er[0]);
         Deque<TreeNode> stack = new LinkedList<TreeNode>();
         stack.push(root);
         int inorderIndex = 0;
